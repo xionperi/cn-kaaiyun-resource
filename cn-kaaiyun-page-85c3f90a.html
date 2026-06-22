@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>开云 · 知识库入口</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans SC", sans-serif;
+            background: #f7f9fc;
+            color: #1a1f2b;
+            line-height: 1.7;
+        }
+
+        /* 深色头图 */
+        .hero {
+            background: linear-gradient(145deg, #0d1117 0%, #1a2332 100%);
+            color: #e4e9f0;
+            padding: 4rem 2rem 3.5rem;
+            text-align: center;
+            border-bottom: 4px solid #2b7a6f;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 2.6rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin-bottom: 0.75rem;
+            color: #f0f4fa;
+        }
+
+        .hero .subhead {
+            font-size: 1.1rem;
+            color: #b0c1d4;
+            max-width: 600px;
+            margin: 0 auto 1.2rem;
+            font-weight: 300;
+        }
+
+        .hero .badge {
+            display: inline-block;
+            background: rgba(43, 122, 111, 0.25);
+            border: 1px solid #2b7a6f;
+            padding: 0.25rem 1rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            color: #aed9d1;
+            letter-spacing: 1px;
+        }
+
+        /* 内容区域——浅色正文区 */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem 4rem;
+        }
+
+        /* 目录感布局 */
+        .directory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.8rem;
+            margin: 2.5rem 0 3rem;
+        }
+
+        .dir-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.8rem 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            border: 1px solid #e6ecf3;
+            transition: box-shadow 0.2s;
+        }
+
+        .dir-card:hover {
+            box-shadow: 0 8px 20px rgba(0, 20, 30, 0.08);
+        }
+
+        .dir-card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: #1a2332;
+        }
+
+        .dir-card p {
+            color: #3f4a5c;
+            font-size: 0.95rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .dir-card .meta {
+            font-size: 0.8rem;
+            color: #77879e;
+            border-top: 1px solid #edf2f7;
+            padding-top: 0.8rem;
+            margin-top: 0.6rem;
+        }
+
+        /* 说明区 */
+        .explain-box {
+            background: #f0f4fa;
+            border-radius: 20px;
+            padding: 2rem 2.2rem;
+            margin: 2.2rem 0;
+            border-left: 6px solid #2b7a6f;
+        }
+
+        .explain-box h2 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #0f1a29;
+            margin-bottom: 1rem;
+        }
+
+        .explain-box p {
+            color: #2a3443;
+            margin-bottom: 1rem;
+        }
+
+        /* 提示区 */
+        .hint-area {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem 2.2rem;
+            margin: 2.2rem 0;
+            border: 1px solid #dce5ef;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+
+        .hint-area h2 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: #1a2332;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .hint-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            margin-top: 0.8rem;
+        }
+
+        .hint-item {
+            background: #f5f8fe;
+            padding: 0.6rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            color: #1f2c3e;
+            border: 1px solid #dde6f0;
+        }
+
+        /* 相关信息区 */
+        .related-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.8rem;
+            margin: 2.8rem 0;
+        }
+
+        .related-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem 1.8rem;
+            border: 1px solid #e6ecf3;
+        }
+
+        .related-card h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1a2332;
+            margin-bottom: 0.8rem;
+            border-bottom: 1px solid #eef3f9;
+            padding-bottom: 0.5rem;
+        }
+
+        .related-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .related-card li {
+            padding: 0.4rem 0;
+            font-size: 0.9rem;
+            color: #3f4a5c;
+            display: flex;
+            gap: 0.4rem;
+        }
+
+        .related-card li::before {
+            content: "·";
+            color: #2b7a6f;
+            font-weight: bold;
+        }
+
+        /* 强调色链接 */
+        a {
+            color: #1b6b5e;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.15s, color 0.15s;
+        }
+
+        a:hover {
+            color: #115147;
+            border-bottom-color: #2b7a6f;
+        }
+
+        /* FAQ 摘要 */
+        .faq-mini {
+            background: #fafcfe;
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            margin-top: 2.2rem;
+            border: 1px solid #e0e8f2;
+        }
+
+        .faq-mini details {
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #e5ecf4;
+            padding-bottom: 0.8rem;
+        }
+
+        .faq-mini details:last-of-type {
+            border-bottom: 0;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .faq-mini summary {
+            font-weight: 500;
+            cursor: pointer;
+            color: #1f2a3c;
+            padding: 0.3rem 0;
+        }
+
+        .faq-mini summary::-webkit-details-marker {
+            color: #2b7a6f;
+        }
+
+        .faq-mini p {
+            margin-top: 0.5rem;
+            padding-left: 0.5rem;
+            color: #3d4a5e;
+            font-size: 0.9rem;
+        }
+
+        /* 页脚 */
+        .footer-note {
+            margin-top: 4rem;
+            padding-top: 1.8rem;
+            border-top: 1px solid #dce5ef;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #6d7d93;
+        }
+
+        /* 响应式 */
+        @media (max-width: 700px) {
+            .hero h1 { font-size: 2rem; }
+            .hero { padding: 3rem 1rem 2.5rem; }
+            .container { padding: 1.8rem 1rem 3rem; }
+            .related-section { grid-template-columns: 1fr; }
+            .explain-box, .hint-area, .faq-mini { padding: 1.5rem 1.2rem; }
+            .dir-card { padding: 1.5rem 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<section class="hero">
+    <h1>开云 · 知识库</h1>
+    <div class="subhead">信息入口 · 收藏指引 · 持续关注</div>
+    <span class="badge">再次访问 · 目录索引</span>
+</section>
+
+<div class="container">
+
+    <!-- 目录感布局：卡片网格 -->
+    <div class="directory-grid">
+        <div class="dir-card">
+            <h3>📋 平台概览</h3>
+            <p>了解 <a href="https://cn-kaaiyun.com">开云</a> 的服务定位、内容体系与使用场景。</p>
+            <div class="meta">更新：2025 · 基础篇</div>
+        </div>
+        <div class="dir-card">
+            <h3>📌 收藏与回访</h3>
+            <p>将当前页面加入书签，便于后续查阅。<br>我们推荐定期回顾以获取最新信息。</p>
+            <div class="meta">提示 · 持续关注</div>
+        </div>
+        <div class="dir-card">
+            <h3>📚 内容索引</h3>
+            <p>功能说明、常见疑问、操作参考与相关资源汇总。按需浏览各分区。</p>
+            <div class="meta">结构 · 分类整理</div>
+        </div>
+        <div class="dir-card">
+            <h3>🔄 频繁访问</h3>
+            <p>如果你已多次到访，可借助本页快速定位感兴趣的部分。</p>
+            <div class="meta">快捷入口 · 目录感</div>
+        </div>
+    </div>
+
+    <!-- 说明区 -->
+    <div class="explain-box">
+        <h2>关于这个介绍页</h2>
+        <p>这个页面旨在为再次访问 <a href="https://cn-kaaiyun.com">开云</a> 的用户提供一个结构化的知识库入口。你不需要从头开始浏览，而是可以通过下方的分区、提示与相关资源，快速找到你关心的内容。</p>
+        <p>我们建议你收藏当前页面（Ctrl+D / Cmd+D），以便后续从书签直接进入。页面内容会定期整合，帮助你持续跟进平台的变化与更新。</p>
+    </div>
+
+    <!-- 提示区 -->
+    <div class="hint-area">
+        <h2>💡 使用提示</h2>
+        <div class="hint-items">
+            <span class="hint-item">🔖 添加到书签</span>
+            <span class="hint-item">📆 每月回访</span>
+            <span class="hint-item">📑 关注更新说明</span>
+            <span class="hint-item">🧩 按需浏览分区</span>
+            <span class="hint-item">📎 保存本页链接</span>
+        </div>
+        <p style="margin-top: 1rem; color: #3f4a5c;">提示区块的作用是帮助你养成持续关注的习惯。当页面布局或内容发生变化时，本入口会同步反映最新结构。</p>
+    </div>
+
+    <!-- 相关信息区 -->
+    <div class="related-section">
+        <div class="related-card">
+            <h4>常见关注点</h4>
+            <ul>
+                <li>平台功能模块说明</li>
+                <li>内容组织方式与分类</li>
+                <li>使用场景与参考</li>
+                <li>反馈与建议渠道</li>
+            </ul>
+        </div>
+        <div class="related-card">
+            <h4>持续关注建议</h4>
+            <ul>
+                <li>定期访问主站了解动态</li>
+                <li>利用收藏夹整理相关页面</li>
+                <li>关注可能的版本或内容调整</li>
+                <li>结合自身需求筛选信息</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- FAQ 摘要 -->
+    <div class="faq-mini">
+        <h2 style="font-size: 1.2rem; font-weight: 500; margin-bottom: 0.8rem; color:#1a2332;">❓ 简短 FAQ</h2>
+        <details>
+            <summary>这个页面和主站是什么关系？</summary>
+            <p>本页是独立于主站的介绍与索引页，提供结构化的信息入口，帮助你更便捷地了解和再次访问 <a href="https://cn-kaaiyun.com">开云</a>。</p>
+        </details>
+        <details>
+            <summary>如何确保我总能找到最新信息？</summary>
+            <p>建议将本页加入书签，并定期通过主站了解实际内容。本入口会保持与平台变化相对的同步。</p>
+        </details>
+        <details>
+            <summary>我可以分享这个页面吗？</summary>
+            <p>当然可以。直接复制本页链接分享即可，它本身就是一个信息入口。如果你需要指向主站，请使用 <a href="https://cn-kaaiyun.com">开云</a> 的链接。</p>
+        </details>
+    </div>
+
+    <!-- 页脚静默 -->
+    <div class="footer-note">
+        知识库入口 · 持续关注 · 内容索引<br>
+        本页仅为介绍与导航使用，建议结合主站实际内容查阅。
+    </div>
+
+</div>
+
+</body>
+</html>
